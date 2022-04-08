@@ -16,7 +16,7 @@ import socket
 import os
 import sys
 
-socket.setdefaulttimeout(5)
+socket.setdefaulttimeout(15)
 
 def clear_screen():
     os.system('cls')
