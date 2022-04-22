@@ -7,9 +7,9 @@ def delete(s, command):
     filename = command.split()[1]
     if os.path.exists(filename):
         os.remove(filename)
-        s.send(b'tiedosto tuhottu')
+        s.send(b'file deleted')
     else:
-        s.send(b'tiedostoa ei loytynyt')
+        s.send(b'file not found')
 
 def download(s,command):
     filename = command.split()[1]
@@ -43,7 +43,7 @@ def aja_komento(s,command):
     if result.returncode == 0:
         s.send(result.stdout)
     else:
-        s.send(b'Virhe komennossa')
+        s.send(b'Invalid command')
 
 def main():
 
