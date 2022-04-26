@@ -47,7 +47,7 @@ def aja_komento(s,command):
 
 def main():
 
-    host_ip = '192.168.56.1'
+    host_ip = '172.20.16.61'
     port    = 8888
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host_ip, port))
