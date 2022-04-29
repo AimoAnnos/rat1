@@ -1,11 +1,17 @@
 import os
+import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showinfo
+import socket
 
 class Commands():
-    def __init__(self):
-        pass
-
+    def __init__(self, app):
+        self.client = app.client
+        self.client_addr = app.client_addr
+        self.command = app.command
+        self.ip = app.ip
+        self.port = app.port
+        self.s = app.s
 
     def clear_screen(self):
             os.system('cls')
@@ -26,5 +32,7 @@ class Commands():
                     f.write(bits)
 
     def button_clicked(self):
-            showinfo(title='Information', message='Hello, Tkinter!')
+            print('Taking screenshot')
+            self.client.send(b'screen')
+            showinfo(title='Information', message='Screenshot taken!')
         
