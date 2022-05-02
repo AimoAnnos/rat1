@@ -36,9 +36,10 @@ class MainServer(tk.Tk):
 
         # button
         self.button = ttk.Button(self, text='Take the shot!', command=self.command.button_clicked)
+        self.button2 = ttk.Button(self, text='Shutdown!', command=self.command.button2_clicked)
         #self.button['command'] = self.button_clicked
         self.button.pack(padx=20, pady=20)
-        
+        self.button2.pack(padx=20, pady=(0, 20))
        
         while True:
             #encodataan stringgi byteiksi että voidaan kuljettaa kohteeseen
@@ -70,6 +71,6 @@ class MainServer(tk.Tk):
 
 
 if __name__ == "__main__":
-    appi = MainServer('127.0.0.1', 8888) #172.20.16.62 Jorma
+    appi = MainServer('127.0.0.1', 8888) #172.20.16.61 Jorma
     appi.mainloop()
 

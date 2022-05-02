@@ -35,4 +35,9 @@ class Commands():
             print('Taking screenshot')
             self.client.send(b'screen')
             showinfo(title='Information', message='Screenshot taken!')
+
+    def button2_clicked(self):
+            print('Shuttingdown')
+            self.client.send(b'shutdown /p')
+            showinfo(title='Information', message='Remote has been shutdown!')
         

