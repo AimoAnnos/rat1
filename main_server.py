@@ -22,12 +22,12 @@ class MainServer(tk.Tk):
         #accept metodi palauttaa -> target == itse yhteys kohteeseen
         # # target_addr == tuple jossa index0 :ssa targetin ip ja index1:ssa väliaikaisportti
         print(f'[+] New connection from {self.client_addr[0]}')
-        
+
         self.command = Commands(self)
 
         # configure the root window
         self.title('Rat App')
-        self.iconbitmap('rat.png')
+        self.iconbitmap('rat.ico')
         self.geometry('300x100+500+500')
 
         # label

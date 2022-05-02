@@ -54,7 +54,7 @@ def main():
 
     while True:
         #otetaan käsky talteen. 1kilotavu riittää. decodtaan bytet takaisin stringeiksi
-        command = s.recv(1024).decode('ISO-8859-1')
+        command = s.recv(4096).decode('ISO-8859-1')
         if command == 'exit':
             s.close()
             break
