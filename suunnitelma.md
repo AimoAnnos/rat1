@@ -1,7 +1,7 @@
 ### Ryhmä 3 projektisuunnitelma, RAT (Remote Access Tool) projekti
 
 #### Projektin tavoite ja tarkoitus
-Projektin tarkoituksena on tuottaa ohjelmisto, jolla yritys voi hallita, ylläpitää ja päivittää tietokoneitaan. Tällä on tarkoitus helpottaa huomattavasti IT-osaston toimintaa, jotta jokaisella koneella ei tarvitse käydä fyysisesti paikan päällä asentamassa mm. jokaista päivitystä. 
+Projektin tarkoituksena on tuottaa ohjelmisto, jolla yritys voi hallita, ylläpitää/valvoa tietokoneitaan. Tällä on tarkoitus helpottaa huomattavasti IT-osaston toimintaa, jotta jokaisella koneella ei tarvitse käydä fyysisesti paikan päällä asentamassa mm. jokaista päivitystä. 
 
 #### Asiakas
 Firma Oy, it-osasto 
