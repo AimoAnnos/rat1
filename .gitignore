@@ -2,6 +2,8 @@
 *.rtf
 *.docx
 __pycache__/
+
 monday.txt
 errror.txt
 screenshot.png
+rat2.png
