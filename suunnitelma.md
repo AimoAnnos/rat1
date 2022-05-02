@@ -14,7 +14,7 @@ Ohjelmistolta vaaditaan ainakin seuraavat ominaisuudet:
 
 •	pääsy terminaaliin ja output etäkoneelle
 
-•	ohjelman suoritus
+•	ohjelman/skriptin suoritus
 
 •	mahdollisuus sammuttaa client tietokone
 
