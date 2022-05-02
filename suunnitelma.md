@@ -51,6 +51,7 @@ Graafinen käyttöliittymä: QT/Tkinter GUI
 
 #### Aikataulu
 Viikko 1-2: projektin ideointi + suunnitelma, dokumentointi, projektin ajanhallinta/aikataulu, github repo, forkkaus, kloonaus, pull request, koodin pohja, virtuaaliympäristöt (win 10, Ubuntu), port forward
+
 Viikko 3-4: projektin koodin pohja ja ominaisuuksien toteuttaminen, GUI tkinterillä, testaus virtuaalikoneiden/fyysisten koneiden välillä
  
 #### Mahdolliset roolit/työnjako, jos ryhmässä useita henkilöitä 
