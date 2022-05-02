@@ -11,8 +11,6 @@ class MainClient:
         self.port = port
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((self.ip, self.port))
-        
-
     
     def delete(self, s, command):
         s = self.s
@@ -34,7 +32,7 @@ class MainClient:
                     bits = f.read(1024)
                 s.send(b'DONE')
         else:
-            s.send('File not found')
+            s.send(b'File not found')
 
     def change_dir(self, s,command):
         #splitataan välilyönneistä ja otetaan indeksi 1 talteen
@@ -64,7 +62,7 @@ class MainClient:
         s = self.s
         while True:
             #otetaan käsky talteen. 1kilotavu riittää. decodtaan bytet takaisin stringeiksi
-            command = self.s.recv(4096).decode('ISO-8859-1')
+            command = s.recv(4096).decode('ISO-8859-1')
             if command == 'exit':
                 self.s.close()
                 break

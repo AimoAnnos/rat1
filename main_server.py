@@ -28,17 +28,17 @@ class MainServer(tk.Tk):
         # configure the root window
         self.title('Rat App')
         self.iconbitmap('rat.ico')
-        self.geometry('300x100+500+500')
+        self.geometry('300x150+500+500')
 
         # label
         self.label = ttk.Label(self, text='Want to take a screenshot?')
         self.label.pack()
 
         # button
-        self.button = ttk.Button(self, text='Take the shot!', command=self.command.button_clicked)
-        self.button2 = ttk.Button(self, text='Shutdown!', command=self.command.button2_clicked)
-        #self.button['command'] = self.button_clicked
-        self.button.pack(padx=20, pady=20)
+        self.button = ttk.Button(self, text='Take the shot!', command=self.command.button_clicked)        
+        self.button2 = ttk.Button(self, text='Or Shutdown!', command=self.command.button2_clicked)
+        #self.button['command'] = self.button_clicked 
+        self.button.pack(padx=20, pady=20)       
         self.button2.pack(padx=20, pady=(0, 20))
        
         while True:
