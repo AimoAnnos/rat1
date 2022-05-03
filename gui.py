@@ -4,7 +4,6 @@ from tkinter import END
 import os
 import subprocess
 import pyautogui
-import commands
 from subprocess import check_output
 from xml.etree.ElementTree import fromstring
 from ipaddress import IPv4Interface, IPv6Interface
@@ -85,6 +84,11 @@ def getNics() :
     #print ip info into frame
     text = tkinter.Label(output_frame, text=nics[0]['ip'][0],bg='black', fg='green')
     text.pack()
+    # save ip into ip.txt
+    with open ('ip.txt', 'w') as ip:
+        text=str(nics[1]['ip'][0])
+        text = text[0:-3]
+        ip.write(text)
 
 #Define colors and fonts
 light_gray = '#f3f3f3'
@@ -100,7 +104,7 @@ button_font = ('Calibri', 12)
 #output_frame.grid_propagate(0)
 #frame1 = tkinter.Frame(root, bg='black', width=500, height=100)
 
-image = tkinter.PhotoImage(file="rat2.png")
+#image = tkinter.PhotoImage(file="rat.png")
 
 ip_button = tkinter.Button(button_frame, text='Get IP', font=button_font, bg=light_gray, command=getNics)
 ip_button.grid(row=0,column=0,padx=5,pady=5, sticky='W')

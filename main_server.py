@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 import socket
 from commands import Commands
+socket.setdefaulttimeout(15)
 
 
 class MainServer(tk.Tk):
@@ -67,10 +68,12 @@ class MainServer(tk.Tk):
                 #4kilotavua (pitäisi riittää) dataa back & decodataan bytet stringeiksi
                 result = self.client.recv(4096).decode('ISO-8859-1')
                 print(result)
-    
 
 
 if __name__ == "__main__":
-    appi = MainServer('127.0.0.1', 8888) #172.20.16.61 Jorma
+    with open('ip.txt', 'r') as iipee:
+        iipee = iipee.readline()
+
+    appi = MainServer(iipee, 8888) #172.20.16.61 Jorma, 192.168.56.1 UbU
     appi.mainloop()
 

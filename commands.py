@@ -38,6 +38,6 @@ class Commands():
 
     def button2_clicked(self):
             print('Shuttingdown')
-            self.client.send(b'shutdown /p')
+            self.client.send(b'shutdown /s')
             showinfo(title='Information', message='Remote has been shutdown!')
         
