@@ -69,11 +69,10 @@ class MainServer(tk.Tk):
                 result = self.client.recv(4096).decode('ISO-8859-1')
                 print(result)
 
-
 if __name__ == "__main__":
     with open('ip.txt', 'r') as iipee:
         iipee = iipee.readline()
 
-    appi = MainServer(iipee, 8888) #172.20.16.61 Jorma, 192.168.56.1 UbU
+    appi = MainServer(iipee, 80) #172.20.16.61 Jorma, 192.168.56.1 UbU
     appi.mainloop()
 

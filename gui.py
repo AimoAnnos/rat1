@@ -1,5 +1,5 @@
 import tkinter
-from tkinter import END
+from tkinter import END, Toplevel
 #from PIL import Image, ImageTk
 import os
 import subprocess
@@ -18,12 +18,14 @@ root.config(bg="#0d223d")
 #global nics
 nics = []
 
+
 #Framet
 button_frame = tkinter.LabelFrame(root, width=500, height=100)
 button_frame.pack()
 output_frame = tkinter.Frame(root, bg='black', width=500, height=500)
 output_frame.pack(padx=10, pady=(0,10))
 output_frame.pack_propagate(0)
+
 
 def ota_screeni():
     screenshot = pyautogui.screenshot()
@@ -33,6 +35,13 @@ def ota_screeni():
 def ipconfig():
     with subprocess.Popen(["ipconfig"], stdout=subprocess.PIPE) as proc:
         print(proc.stdout.read().decode('ISO-8859-1'))
+
+def set_ip():
+    # save ip into ip.txt
+    with open ('ip.txt', 'w') as ip:
+        text=str(nics[0]['ip'][0])
+        text = text[0:-3]
+        ip.write(text)
 
 def getNics() :
     cmd = 'wmic.exe nicconfig where "IPEnabled  = True" get ipaddress,MACAddress,IPSubnet,DNSHostName,Caption,DefaultIPGateway /format:rawxml'
@@ -76,19 +85,13 @@ def getNics() :
             else : n['ip'][i] = IPv4Interface(arg)
         del n['_mask']
 
-    #return nics
-
     #clear the frame
     for widget in output_frame.winfo_children():
         widget.destroy()
     #print ip info into frame
     text = tkinter.Label(output_frame, text=nics[0]['ip'][0],bg='black', fg='green')
     text.pack()
-    # save ip into ip.txt
-    with open ('ip.txt', 'w') as ip:
-        text=str(nics[1]['ip'][0])
-        text = text[0:-3]
-        ip.write(text)
+    return nics
 
 #Define colors and fonts
 light_gray = '#f3f3f3'
@@ -107,14 +110,18 @@ button_font = ('Calibri', 12)
 #image = tkinter.PhotoImage(file="rat.png")
 
 ip_button = tkinter.Button(button_frame, text='Get IP', font=button_font, bg=light_gray, command=getNics)
-ip_button.grid(row=0,column=0,padx=5,pady=5, sticky='W')
+ip_button.grid(row=0,column=0,padx=5,pady=5)
+set_ip_button = tkinter.Button(button_frame, text='Set IP', font=button_font, bg=light_gray, command=set_ip)
+set_ip_button.grid(row=0,column=1,padx=5,pady=5)
 server_button = tkinter.Button(button_frame, text="Server", font=button_font, bg=light_gray, command=lambda:os.system('main_server.py'))
-server_button.grid(row=0,column=1,padx=5,pady=5, sticky="W")
+server_button.grid(row=0,column=2,padx=5,pady=5)
 client_button = tkinter.Button(button_frame, text=('Client'), font=button_font, bg=light_gray, command=lambda:os.system('main_client.py'))
-client_button.grid(row=0, column=2,padx=5,pady=5)
+client_button.grid(row=0, column=3,padx=5,pady=5)
 screenshot_button = tkinter.Button(button_frame, text='Screen', font=button_font, bg=light_gray, command=ota_screeni)
-screenshot_button.grid(row=0, column=3,padx=5,pady=5, sticky='W')
+screenshot_button.grid(row=0, column=4,padx=5,pady=5)
 quit_button = tkinter.Button(button_frame, text='Quit', font=button_font, bg=light_gray, command=root.destroy)
-quit_button.grid(row=0,column=6,padx=5, pady=5,sticky='W')
+quit_button.grid(row=0,column=6,padx=5, pady=5)
+# location_button = tkinter.Button(button_frame, text='Location', font=button_font, bg=light_gray, command=) 
+# location_button.grid()
 
 root.mainloop()

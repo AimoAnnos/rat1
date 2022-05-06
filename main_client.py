@@ -53,8 +53,6 @@ class MainClient:
             else:
                 s.send(b'Invalid command')
 
-
-
     def run_command(self, s, command):
         s = self.s
         # käytetään subprocessin run functiota. 
@@ -92,7 +90,9 @@ class MainClient:
                 self.run_command(s,command)
                 
 
-
 if __name__ == '__main__':
-    appi = MainClient('192.168.56.1', 8888)
+    with open('ip.txt', 'r') as iipee:
+        iipee = iipee.readline()
+
+    appi = MainClient(iipee, 80)
     appi.main()
