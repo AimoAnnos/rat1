@@ -1,25 +1,24 @@
 
 import tkinter as tk
-from tkinter import ttk, BOTH
+from tkinter import BOTH
 from tkinter.messagebox import showinfo
 
-class AdminWindow(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        
+class AdminWindow():
+    def __init__(self):        
         # configure the root window
-        self.title('Admin Window')
-        self.iconbitmap('icons/rat.ico')
-        self.geometry('1200x900+200+50')
-        self.config(bg='black')
-        #self.resizable(0,0)
+        self.admin = tk.Tk()
+        self.admin.title('Admin Window')
+        self.admin.iconbitmap('icons/rat.ico')
+        self.admin.geometry('1200x900+200+50')
+        self.admin.config(bg='black')
+        self.admin.resizable(0,0)
 
         # setting layout frames
-        self.header_frame = tk.Frame(self, width=1200, height=100, bg='black')
-        self.midle_frame = tk.Frame(self,width=1200, height=800, bg='black')
+        self.header_frame = tk.Frame(self.admin, width=1200, height=100, bg='black')
+        self.midle_frame = tk.Frame(self.admin,width=1200, height=800, bg='black')
         self.midle_left_frame = tk.Frame(self.midle_frame, width=750, height=700, bg='black', highlightbackground='lightgreen', highlightcolor='lightgreen', highlightthickness=2, bd=0)
         self.midle_right_frame = tk.Frame(self.midle_frame, width=350, height=700, bg='black', highlightbackground='lightgreen', highlightcolor='lightgreen', highlightthickness=2, bd=0)
-        self.footer_frame = tk.Frame(self, width=1200, height=50, bg='black')
+        self.footer_frame = tk.Frame(self.admin, width=1200, height=50, bg='black')
         self.header_frame.pack()
         self.midle_frame.pack()
         self.midle_left_frame.grid(row=0, column=1, padx = (25,0), pady= (20,25), sticky='w')
@@ -44,7 +43,7 @@ class AdminWindow(tk.Tk):
         self.midle_left_bottom_data_button.grid(row=0, column=1, padx=10, pady=(10, 20))
         self.midle_left_bottom_info_button = tk.Button(self.midle_left_bottom_frame, width=15, text='Info / settings', bg='lightgreen', fg='black', font=('helvetica', 15))
         self.midle_left_bottom_info_button.grid(row=0, column=2, padx=10, pady=(10, 20))
-        self.midle_left_bottom_exit_button = tk.Button(self.midle_left_bottom_frame, width=15, text='Exit', bg='orange', fg='black', font=('helvetica', 15))
+        self.midle_left_bottom_exit_button = tk.Button(self.midle_left_bottom_frame, width=15, text='Exit', bg='orange', fg='black', font=('helvetica', 15), command=self.admin.destroy)
         self.midle_left_bottom_exit_button.grid(row=0, column=3, padx=10, pady=(10, 24))
 
         self.midle_right_label_1 = tk.Label(self.midle_right_frame, text='Chat', bg='black', fg='white', font=('helvetica', 15))
@@ -66,9 +65,6 @@ class AdminWindow(tk.Tk):
         self.footer_label_1 = tk.Label(self.footer_frame, text='by Rat Masters', bg='black', fg='white', font=('helvetica', 10))
         self.footer_label_1.pack()
         
+        self.midle_right_text.insert("1.0", "Hello from Rat masters!\nWelcome!")
 
-if __name__ == "__main__":
-    app = AdminWindow() 
-    app.mainloop()
-
- 
+        self.admin.mainloop()
