@@ -59,7 +59,7 @@ class StartWindow():
 
     def open_admin(self):        
         if self.midle_entry.get() != "rotta":
-            showinfo(title="NOT CORRECT!", message="Please enter correct  password!")
+            showinfo(title="NOT CORRECT!", message="Please enter correct password!")
             self.midle_entry.delete(0,END)
         else:
             self.start.destroy()           
