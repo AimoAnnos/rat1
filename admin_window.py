@@ -1,7 +1,12 @@
-
 import tkinter as tk
 from tkinter import BOTH
 from tkinter.messagebox import showinfo
+import socket
+from unittest import result
+from commands import Commands
+from main_server import MainServer
+from main_client import MainClient
+import subprocess
 
 class AdminWindow():
     def __init__(self):        
@@ -66,5 +71,6 @@ class AdminWindow():
         self.footer_label_1.pack()
         
         self.midle_right_text.insert("1.0", "Hello from Rat masters!\nWelcome!")
+        self.midle_left_text.insert("end" , )
 
         self.admin.mainloop()
