@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import BOTH, END
 from tkinter.messagebox import showinfo
-from client_window import ClientWindow
-from admin_window import AdminWindow
+import subprocess
 
 class StartWindow():
     def __init__(self):
@@ -54,16 +53,17 @@ class StartWindow():
     #Button functions
     def open_client(self):
         self.start.destroy()        
-        self.client_window = ClientWindow()
-        
+        #self.client_window = ClientWindow()
+        subprocess.call(['python', 'main_client.py'])
 
     def open_admin(self):        
         if self.midle_entry.get() != "rotta":
-            showinfo(title="NOT CORRECT!", message="Please enter correct password!")
+            showinfo(title="PASSWORD INCORRECT!", message="Please enter the correct password!")
             self.midle_entry.delete(0,END)
         else:
             self.start.destroy()           
-            self.admin_window = AdminWindow()
+            #self.admin_window = AdminWindow()
+            subprocess.run(['python','main_server.py'])
             
 
 if __name__ == "__main__":
