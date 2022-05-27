@@ -71,6 +71,9 @@ class AdminWindow():
         self.footer_label_1.pack()
         
         self.midle_right_text.insert("1.0", "Hello from Rat masters!\nWelcome!")
-        self.midle_left_text.insert("end" , )
+        #self.midle_left_text.insert("end" , )
 
         self.admin.mainloop()
+
+    def start_server():
+        pass
