@@ -47,6 +47,7 @@ Tiedoston siirto, pääsy terminaalin ja ohjelman/skriptin suoritus onnistuu et�
 
 #### Ohjelmointikielet ja -teknologiat
 Python, socket: backend
+
 Graafinen käyttöliittymä: QT/Tkinter GUI 
 
 #### Aikataulu
