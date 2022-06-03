@@ -16,13 +16,13 @@ class AdminWindow():
         self.admin.iconbitmap('icons/rat.ico')
         self.admin.geometry('1200x900+200+50')
         self.admin.config(bg='black')
-        self.admin.resizable(0,0)
+        self.admin.resizable(1,1)
 
         # setting layout frames
         self.header_frame = tk.Frame(self.admin, width=1200, height=100, bg='black')
-        self.midle_frame = tk.Frame(self.admin,width=1200, height=800, bg='black')
-        self.midle_left_frame = tk.Frame(self.midle_frame, width=750, height=700, bg='black', highlightbackground='lightgreen', highlightcolor='lightgreen', highlightthickness=2, bd=0)
-        self.midle_right_frame = tk.Frame(self.midle_frame, width=350, height=700, bg='black', highlightbackground='lightgreen', highlightcolor='lightgreen', highlightthickness=2, bd=0)
+        self.midle_frame = tk.Frame(self.admin,width=1200, height=600, bg='black')
+        self.midle_left_frame = tk.Frame(self.midle_frame, width=750, height=600, bg='black', highlightbackground='lightgreen', highlightcolor='lightgreen', highlightthickness=2, bd=0)
+        self.midle_right_frame = tk.Frame(self.midle_frame, width=350, height=600, bg='black', highlightbackground='lightgreen', highlightcolor='lightgreen', highlightthickness=2, bd=0)
         self.footer_frame = tk.Frame(self.admin, width=1200, height=50, bg='black')
         self.header_frame.pack()
         self.midle_frame.pack()

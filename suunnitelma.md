@@ -47,13 +47,18 @@ Tiedoston siirto, pääsy terminaalin ja ohjelman/skriptin suoritus onnistuu et�
 
 #### Ohjelmointikielet ja -teknologiat
 Python, socket: backend
+
 Graafinen käyttöliittymä: QT/Tkinter GUI 
 
 #### Aikataulu
 Viikko 1-2: projektin ideointi + suunnitelma, dokumentointi, projektin ajanhallinta/aikataulu, github repo, forkkaus, kloonaus, pull request, koodin pohja, virtuaaliympäristöt (win 10, Ubuntu)
 
 Viikko 3-4: projektin koodin pohja ja ominaisuuksien toteuttaminen, GUI tkinterillä, testaus virtuaalikoneiden/fyysisten koneiden välillä samassa aliverkossa
- 
+
+Viikko 5-6:
+
+Viikko 7-8:
+
 #### Mahdolliset roolit/työnjako, jos ryhmässä useita henkilöitä 
 Kai: RAT:n perus toiminnallisuus, socket
 

@@ -40,7 +40,7 @@ class StartWindow():
         self.midle_button_admin.pack(pady=10)
         self.midle_label_3 = tk.Label(self.midle_frame, text='If running as admin, please enter password:', bg='black', fg='white', font=('helvetica', 15))
         self.midle_label_3.pack(pady=10)
-        self.midle_entry = tk.Entry(self.midle_frame, bg='black', fg='lightgreen', font=('helvetica', 15), justify='center', insertbackground='lightgreen')
+        self.midle_entry = tk.Entry(self.midle_frame,show='*', bg='black', fg='lightgreen', font=('helvetica', 15), justify='center', insertbackground='lightgreen')
         self.midle_entry.pack(pady=10)
         self.midle_entry.bind('<Return>', lambda event:self.open_admin())
 
