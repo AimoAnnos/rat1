@@ -40,7 +40,7 @@ class StartWindow():
         self.midle_button_admin.pack(pady=10)
         self.midle_label_3 = tk.Label(self.midle_frame, text='If running as admin, please enter password:', bg='black', fg='white', font=('helvetica', 15))
         self.midle_label_3.pack(pady=10)
-        self.midle_entry = tk.Entry(self.midle_frame,show='*', bg='black', fg='lightgreen', font=('helvetica', 15), justify='center', insertbackground='lightgreen')
+        self.midle_entry = tk.Entry(self.midle_frame, show='*', bg='black', fg='lightgreen', font=('helvetica', 15), justify='center', insertbackground='lightgreen')
         self.midle_entry.pack(pady=10)
         self.midle_entry.bind('<Return>', lambda event:self.open_admin())
 
@@ -54,7 +54,7 @@ class StartWindow():
     def open_client(self):
         self.start.destroy()        
         #self.client_window = ClientWindow()
-        subprocess.call(['python', 'main_client.py'])
+        subprocess.run(['python', 'client_new.py'])
 
     def open_admin(self):        
         if self.midle_entry.get() != "rotta":
@@ -63,7 +63,7 @@ class StartWindow():
         else:
             self.start.destroy()           
             #self.admin_window = AdminWindow()
-            subprocess.run(['python','main_server.py'])
+            subprocess.run(['python','server_new.py'])
             
 
 if __name__ == "__main__":

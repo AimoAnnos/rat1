@@ -1,6 +1,7 @@
 *.xlsx
 *.rtf
 *.docx
+*.xls
 __pycache__/
 
 monday.txt
