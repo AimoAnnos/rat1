@@ -50,7 +50,7 @@ Graafinen käyttöliittymä: Tkinter GUI
 #### Aikataulu
 Viikko 1-2: ideointi ja suunnittelu, dokumentointi, projektin ajanhallinta/aikataulu, github repo, fork, clone, pull request, koodin pohja, virtuaaliympäristöt (win 10, Ubuntu)
 
-Viikko 3-4: projektin koodin pohja ja ominaisuuksien toteuttaminen, GUI QT:lla/tkinterillä, testaus virtuaalikoneiden/fyysisten koneiden välillä samassa aliverkossa
+Viikko 3-4: projektin koodin pohja ja ominaisuuksien toteuttaminen, GUI tkinterillä, testaus virtuaalikoneiden/fyysisten koneiden välillä samassa aliverkossa
 
 Viikko 5-6: Tkinteriin tutustuminen, Gui:n tekeminen, http versio vs socket versio, download ja upload
 
