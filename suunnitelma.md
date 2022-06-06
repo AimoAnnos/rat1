@@ -63,7 +63,7 @@ Viikko 3-4: Projektin koodin pohja luotiin, jossa perustoiminnallisuus oli ositt
 
 Viikko 5-6: Projektin commandline versioon saatiin lisättyä download-, upload- ja kuvankaappauksen toiminnallisuudet, joita esiteltiin välidemossa. Tässä vaiheessa projektia laadittiin hahmotelma lopullisesta GUI:n toteutuksesta. Testasimme myös http -yhteyttä hyödyntävää versiota, mutta päädyimme kuitenkin socket pohjaiseen versioon.
 
-Viikko 7-8: Luotiin webpalvelin, josta server puolen admin käyttäjä voi tarkistaa ja tarvittaessa muuttaa käytettävän IP:n ja portin, ja josta client ohjelma noutaa ajankohtaisen käytössäolevan IP:n ja portin. Geo -funktiolla saadaan suuntaa-antava sijainti IP:n perusteella ja systeminfo kertoo client koneen järjestelmän tiedot. Skriptin suoritus myös onnistuu client koneella. Graafinen käyttöliittymä jäi vähän vaiheeseen threading haasteiden takia.
+Viikko 7-8: Luotiin webpalvelin, josta server puolen admin käyttäjä voi tarkistaa ja tarvittaessa muuttaa käytettävän IP:n ja portin, ja josta client ohjelma noutaa ajankohtaisen käytössäolevan IP:n ja portin. Geo -funktiolla saadaan suuntaa-antava sijainti IP:n perusteella ja systeminfo kertoo client koneen järjestelmän tiedot. Skriptin suoritus myös onnistuu client koneella. Graafinen käyttöliittymä ja chat ominaisuus jäi vähän vaiheeseen threading haasteiden takia.
 
 #### Mahdolliset roolit/työnjako, jos ryhmässä useita henkilöitä 
 Kai: RAT:n perustoiminnallisuus, socket
