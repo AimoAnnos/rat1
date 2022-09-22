@@ -1,2 +1,3 @@
 # rat1
-Tool
+Remote Access Tool made as an Python programming excercise
+By RatMasters
